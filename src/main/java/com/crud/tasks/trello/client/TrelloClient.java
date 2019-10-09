@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,15 +35,10 @@ public class TrelloClient {
 
     public List<TrelloBoardDto> getTrelloBoards() {
 
-    TrelloBoardDto[] boardsResponse = restTemplate.getForObject(getURI(), TrelloBoardDto[].class);
+        TrelloBoardDto[] boardsResponse = restTemplate.getForObject(getURI(), TrelloBoardDto[].class);
 
-    /*if(boardsResponse!=null) {
-        return Arrays.asList(boardsResponse);
+        if(Optional.of(boardsResponse).isPresent()) {
+            return Arrays.asList(boardsResponse); }
+        return new ArrayList<>();
     }
-    return new ArrayList<>();*/
-
-    return Optional.ofNullable(Arrays.asList(boardsResponse)).orElse(new ArrayList<>());
-
-    }
-
 }
