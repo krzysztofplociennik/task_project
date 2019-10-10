@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class AttachmentsByType {
+public class AttachmentsByTypeDto {
 
-    private Trello trello;
+    private TrelloDto trelloDto;
 }
