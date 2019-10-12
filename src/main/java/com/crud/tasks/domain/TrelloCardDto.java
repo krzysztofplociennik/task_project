@@ -13,5 +13,5 @@ public class TrelloCardDto {
     private String description;
     private String pos;
     private String listId;
-    private TrelloBadgesDto trelloBadgesDto;
+    //private TrelloBadgesDto trelloBadgesDto;
 }
