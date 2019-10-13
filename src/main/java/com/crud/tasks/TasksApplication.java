@@ -12,6 +12,6 @@ public class TasksApplication /*extends SpringBootServletInitializer*/ {
 
 	/*@Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder applicationBuilder) {
-	    return applicationBuilder.sources(TasksApplication.class);*/
-    }
+	    return applicationBuilder.sources(TasksApplication.class);
+    }*/
 }
