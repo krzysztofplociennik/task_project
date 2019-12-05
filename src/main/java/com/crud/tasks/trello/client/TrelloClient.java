@@ -33,7 +33,6 @@ public class TrelloClient {
     }
 
     public List<TrelloBoardDto> getTrelloBoards() {
-
         try {
             TrelloBoardDto[] boardsResponse = restTemplate.getForObject(getURI(), TrelloBoardDto[].class);
             return Arrays.asList(ofNullable(boardsResponse).orElse(new TrelloBoardDto[0]));
