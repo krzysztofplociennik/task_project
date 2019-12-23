@@ -20,7 +20,6 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -41,7 +40,7 @@ public class TaskControllerTest {
         tasksList.add(new TaskDto(2L, "title", "content test"));
         when(taskMapperMock.mapToTaskDtoList(dbServiceMock.getAllTasks())).thenReturn(tasksList);
         //When & Then
-        mockMvc.perform(get("/v1/task/getTasks").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/v1/tasks").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].id", is(2)))
@@ -58,7 +57,7 @@ public class TaskControllerTest {
         when(taskMapperMock.mapToTaskDto(exampleTask)).thenReturn(exampleTaskDto);
 
         //When & Then
-        mockMvc.perform(get("/v1/task/getTask?taskId=4")
+        mockMvc.perform(get("/v1/tasks/{}?taskId=4")
                 .contentType(MediaType.APPLICATION_JSON) )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(4)))
@@ -67,7 +66,7 @@ public class TaskControllerTest {
     }
     @Test
     public void deleteTaskTest() throws Exception {
-        mockMvc.perform(delete("/v1/task/deleteTask?taskId=4")
+        mockMvc.perform(delete("/v1/tasks/{}?taskId=4")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
@@ -84,7 +83,7 @@ public class TaskControllerTest {
         String jsonContent = gson.toJson(exampleTaskDto);
 
         //When & Then
-        mockMvc.perform(put("/v1/task/updateTask")
+        mockMvc.perform(put("/v1/tasks")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
@@ -101,7 +100,7 @@ public class TaskControllerTest {
 
         when(taskMapperMock.mapToTaskDto(dbServiceMock.saveTask(ArgumentMatchers.any(Task.class)))).thenReturn(exampleTaskDto);
 
-        mockMvc.perform(post("/v1/task/createTask")
+        mockMvc.perform(post("/v1/tasks")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
